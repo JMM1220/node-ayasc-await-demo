@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ayasc/await-demo</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<form action="http://127.0.0.1:8080/form" method="GET">
+	<input type="text" name="first_name">
+	<input type="text" name="last_name">
+	<input type="submit" value="submit">
+</form>
+
+<br><br>
+<div id="app">
+	<div id="number">
+	手机号码: <input type="text" placeholder="请输入手机号码" v-model="phone">
+    <button @click="getAccountType">查询</button>
+</div>
+<div id="recharge">
+	<div v-for="(item, index) in rechageType" :key="index">{{item.number}}</div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+	new Vue({
+		el: '#app',
+		data: {
+			phone: '',
+			privince: '',
+			city: '',
+			rechageType: []
+		},
+		methods: {
+			getLocation(phone) {
+				console.log(phone, 999)
+				return axios.post('location', {phone})
+			},
+			// 根据拿到的省市来获取充值面额
+			getRechargeType(privince, city) {
+				return axios.post('getRechargeType', privince, city)
+			},
+			getAccountType() {
+				this.getLocation(this.phone).then((res) => {
+					if (res.data.success) {
+						this.privince = res.data.privince;
+						this.city = res.data.city;
+						this.getRechargeType(this.privince, this.city).then((res) => {
+							if (res.data.success) {
+								this.rechageType = res.data.recharge
+							}
+						} )
+					}
+				})
+			}
+		}
+	})
+</script>
+</body>
+</html>

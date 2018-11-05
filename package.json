@@ -1,0 +1,31 @@
+{
+  "name": "ayasc-await-demo",
+  "version": "1.0.0",
+  "description": "node结合html的一个简单的ayasc/await 异步数据请求队列",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -p",
+    "dev": "webpack-dev-server --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JMM1220/node-ayasc-await-demo.git"
+  },
+  "author": "Shero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JMM1220/node-ayasc-await-demo/issues"
+  },
+  "homepage": "https://github.com/JMM1220/node-ayasc-await-demo#readme",
+  "dependencies": {
+    "circular-json": "^0.5.9",
+    "express": "^4.16.4",
+    "wepack": "0.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  }
+}
