@@ -29,31 +29,39 @@
 		el: '#app',
 		data: {
 			phone: '',
-			privince: '',
-			city: '',
 			rechageType: []
 		},
 		methods: {
 			getLocation(phone) {
-				console.log(phone, 999)
-				return axios.post('location', {phone})
+				return axios.get('../location', {phone})
 			},
 			// 根据拿到的省市来获取充值面额
 			getRechargeType(privince, city) {
 				return axios.post('getRechargeType', privince, city)
 			},
-			getAccountType() {
-				this.getLocation(this.phone).then((res) => {
-					if (res.data.success) {
-						this.privince = res.data.privince;
-						this.city = res.data.city;
-						this.getRechargeType(this.privince, this.city).then((res) => {
-							if (res.data.success) {
-								this.rechageType = res.data.recharge
-							}
-						} )
-					}
-				})
+			// getAccountType() {
+			// 	this.getLocation(this.phone).then((res) => {
+			// 		if (res.data.success) {
+			// 			this.privince = res.data.privince;
+			// 			this.city = res.data.city;
+			// 			this.getRechargeType(this.privince, this.city).then((res) => {
+			// 				if (res.data.success) {
+			// 					this.rechageType = res.data.recharge
+			// 				}
+			// 			} )
+			// 		}
+			// 	})
+			// }
+			async getAccountType() {
+				let location = await this.getLocation(this.phone);
+				if(location.data.success) {
+					let privince = location.data.location.privince;
+				    let city = location.data.location.city;
+				    let recharge = await this.getRechargeType(privince, city);
+				    if (recharge.data.success) {
+				    	this.rechageType = recharge.data.recharge
+				    }
+				}
 			}
 		}
 	})

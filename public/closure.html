@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>闭包练习</title>
+</head>
+<body>
+	<button onclick="getClosure()">闭包</button>
+<script type="text/javascript">
+	function getClosure() {
+		//this.fn1(10);
+		// var oldObj = {
+		// 	name: 'json',
+		// 	age: 23,
+		// 	height: 80
+		// }
+		// var newObj = JSON.parse(JSON.stringify(oldObj));
+		// console.log(newObj, JSON.stringify(oldObj))
+		// var word = '          hello  word   ';
+		// console.log(this.trim(word))
+		this.count();
+	}
+	//去除空白字符
+	function trim(str) {
+		if (str && typeof(str) == 'string') {
+			return str.replace(/(^s*)|(s*)$/g,"")
+		}
+	}
+
+//函数作为返回值
+	function outer() {
+		// body.
+		var count = 20;
+		return function inner(arg) {
+			console.log(arg * count)
+		}
+	}
+	var fn1 = outer();
+	//作为参数传入
+	(function (arg) {
+		var m = 8;
+		arg(9)
+	})(fn1)
+
+	//判断字符串中某个字符出现的次数
+	function count() {
+		var str = 'aaahhhhhjswwioooeuwweeeennnbmmkhh';
+		var obj = {};
+		for(var i = 0; i < str.length; i++) {
+			if (!obj[str.charAt(i)]) {
+				obj[str.charAt(i)] = i;
+			} else {
+				obj[str.charAt(i)] = i++;
+			}
+		}
+		var initNum = 0;
+		var index = '';
+		for(var i in obj) {
+			if (obj[i] > initNum) {
+				initNum = obj[i];
+				index = i;
+			}
+		}
+		console.log(initNum, index);
+	}
+
+</script>
+</body>
+</html>
