@@ -22,18 +22,6 @@ app.get('/form',function(req, res) {
 	res.end(util.inspect(obj, {depth: null}))
 })
 
-// apiRoutes.use('/location', function (req, res) {
-//   setTimeout(() => {
-// 		res.json({
-// 			success: true,
-// 			location: {
-// 				province: '河南省',
-// 				city: '南阳市'
-// 			}
-// 		})
-// 	}, 1000)
-// })
-
 app.get('/location', (req, res) => {
 	setTimeout(() => {
 		res.json({
